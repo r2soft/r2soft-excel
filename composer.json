@@ -3,8 +3,8 @@
 	"description":"R2 Soft - Utilitarios para Exportar Excecl",
 	"license": "MIT",
 	"keywords": [
-	"debug",
-	"R2 Soft"
+		"debug",
+		"R2 Soft"
 	],
 	"authors":[
 	{
@@ -19,11 +19,10 @@
 	"homepage": "https://www.r2soft.com.br/",
 	"require": {
 		"mk-j/php_xlsxwriter": "^0.37.0"
-	}
+	},
 	"autoload": {
         "psr-4": {
             "R2Soft\\Excel\\": "src/Excel/"
-
         }
     }
 }
