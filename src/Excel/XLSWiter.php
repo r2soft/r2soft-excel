@@ -272,7 +272,13 @@ class XLSXWriter
         $style = &$row_options;
         $c=0;
         foreach ($row as $v) {
-            $number_format = $sheet->columns[$c]['number_format'];
+
+            if(isset($style['format-number'])){
+                $number_format = $row_options['format-number'];
+            }else{
+                $number_format = $sheet->columns[$c]['number_format'];
+            }
+
             $number_format_type = $sheet->columns[$c]['number_format_type'];
             $cell_style_idx = empty($style) ? $sheet->columns[$c]['default_cell_style'] : $this->addCellStyle( $number_format, json_encode(isset($style[0]) ? $style[$c] : $style) );
             $this->writeCell($sheet->file_writer, $sheet->row_count, $c, $v, $number_format_type, $cell_style_idx);
@@ -664,10 +670,14 @@ class XLSXWriter
         }
         $workbook_xml.='</sheets>';
         $workbook_xml.='<definedNames>';
+
+        $i=0;
         foreach($this->sheets as $sheet_name=>$sheet) {
             if ($sheet->auto_filter) {
                 $sheetname = self::sanitize_sheetname($sheet->sheetname);
-                $workbook_xml.='<definedName name="_xlnm._FilterDatabase" localSheetId="0" hidden="1">\''.self::xmlspecialchars($sheetname).'\'!$A$1:' . self::xlsCell($sheet->row_count - 1, count($sheet->columns) - 1, true) . '</definedName>';
+//				$workbook_xml.='<definedName name="_xlnm._FilterDatabase" localSheetId="0" hidden="1">\''.self::xmlspecialchars($sheetname).'\'!$A$1:' . self::xlsCell($sheet->row_count - 1, count($sheet->columns) - 1, true) . '</definedName>';
+                $workbook_xml.='<definedName name="_xlnm._FilterDatabase" localSheetId="'.$i.'" hidden="1">\''.self::xmlspecialchars($sheetname).'\'!$A$1:' . self::xlsCell($sheet->row_count - 1, count($sheet->columns) - 1, true) . '</definedName>';
+
                 $i++;
             }
         }
