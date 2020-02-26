@@ -274,8 +274,12 @@ class XLSXWriter
         foreach ($row as $v) {
 
             if(isset($style['format-number'])){
-                $number_format = $row_options['format-number'];
-            }else{
+                $number_format = $style['format-number'];
+
+            }elseif(isset($style[$c]['format-number'])){
+                $number_format = $style[$c]['format-number'];
+            }
+            else{
                 $number_format = $sheet->columns[$c]['number_format'];
             }
 
