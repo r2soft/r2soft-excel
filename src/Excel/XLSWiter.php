@@ -272,7 +272,6 @@ class XLSXWriter
         $style = &$row_options;
         $c=0;
         foreach ($row as $v) {
-
             if(isset($style['format-number'])){
                 $number_format = $style['format-number'];
 
@@ -281,6 +280,15 @@ class XLSXWriter
             }
             else{
                 $number_format = $sheet->columns[$c]['number_format'];
+            }
+
+            if(isset($style['format-date'])){
+                $number_format = $style['format-date'];
+                $sheet->columns[$c]['number_format_type'] = 'n_date';
+
+            }elseif(isset($style[$c]['format-date'])){
+                $number_format = $style[$c]['format-date'];
+                $sheet->columns[$c]['number_format_type'] = 'n_date';
             }
 
             $number_format_type = $sheet->columns[$c]['number_format_type'];
