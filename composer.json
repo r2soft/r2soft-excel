@@ -22,12 +22,10 @@
 		"php": ">=7.2"
 	},
 	"autoload": {
+		"classmap": ["XLSWiter.php"],
 		"psr-4": {
 			"R2Soft\\Excel\\": "src/Excel/"
 
 		}
-	},
-	"autoload": {
-		"classmap": ["XLSWiter.php"]
 	}
 }
